@@ -1,0 +1,311 @@
+$app-container-width: 100%;
+$app-performance-color: darksalmon;
+$app-part-color: antiquewhite;
+$app-act-color: ghostwhite;
+
+.app-container {
+  background-color: darksalmon;
+  font-family: "PT Serif", sans-serif !important;
+  width: $app-container-width;
+}
+
+.app-edit-overlay {
+  background-color: white;
+  border-radius: 0px 0px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 12px;
+  outline: none;
+  padding: 24px;
+  position: fixed;
+  right: 12px;
+  top: 0px;
+  z-index: 100500;
+}
+
+.app-card {
+  display: flex;
+  flex-direction: column;
+  font-family: PT Sans Narrow;
+}
+
+.app-performance-card {
+  @extend .app-card;
+  gap: 96px;
+  padding: 24px;
+
+  .app-name {
+    @extend .app-typography-4;
+    text-align: center;
+    flex-grow: 1;
+  }
+
+  .app-performance-name {
+    @extend .app-typography-3;
+    text-align: center;
+  }
+
+  .app-performance-addon {
+    @extend .app-typography-2;
+    padding: 0px 24px;
+    text-align: center;
+    flex-grow: 1;
+  }
+
+  .app-performance-location {
+    @extend .app-typography-event-location;
+  }
+}
+
+.app-action-btn {
+  cursor: pointer;
+  opacity: 0.4;
+  padding: 4px;
+}
+
+.app-parts {
+  .app-part {
+    background-color: antiquewhite;
+    .app-part-card {
+      @extend .app-card;
+
+      gap: 24px;
+      padding: 24px;
+
+      .app-part-title {
+        @extend .app-typography-4;
+        line-height: 32px;
+        align-self: center;
+        cursor: pointer;
+      }
+
+      .app-part-name {
+        @extend .app-typography-1;
+        cursor: pointer;
+      }
+      .app-part-addon {
+        @extend .app-typography-5;
+        cursor: pointer;
+      }
+
+      .app-part-performers {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .app-part-performer {
+          display: flex;
+          flex-direction: row;
+          cursor: pointer;
+
+          .app-part-performer-role {
+            @extend .app-typography-2;
+            min-width: 120px;
+            max-width: 120px;
+            opacity: 0.5;
+          }
+
+          .app-part-performer-who {
+            @extend .app-typography-5;
+          }
+        }
+      }
+    }
+
+    .app-acts {
+      gap: 16px;
+      display: flex;
+      flex-direction: column;
+      padding: 0px -24px;
+
+      .app-act-card {
+        @extend .app-card;
+        background-color: ghostwhite;
+        gap: 24px;
+        padding: 24px;
+
+        .app-part-title {
+          @extend .app-typography-4;
+          cursor: pointer;
+        }
+        .app-act-name {
+          @extend .app-typography-6;
+          cursor: pointer;
+        }
+        .app-act-addon {
+          @extend .app-typography-5;
+          cursor: pointer;
+        }
+
+        .app-act-authors {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-top: -48px;
+
+          .app-act-author {
+            flex-direction: row;
+            display: flex;
+            cursor: pointer;
+
+            .app-act-author-role {
+              @extend .app-typography-2;
+              min-width: 120px;
+              max-width: 120px;
+              opacity: 0.5;
+            }
+
+            .app-act-author-name {
+              @extend .app-typography-5;
+            }
+          }
+        }
+
+        .app-act-performers {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          .app-act-performer {
+            cursor: pointer;
+
+            .app-act-performer-role {
+              @extend .app-typography-2;
+              opacity: 0.5;
+            }
+
+            .app-act-performer-name {
+              @extend .app-typography-7;
+            }
+            .app-act-performer-addon {
+              @extend .app-typography-5;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.app-action-btn-hidden {
+  visibility: hidden;
+}
+
+// Cross card buttons.
+
+.app-cross-card-btn-container {
+  position: relative;
+}
+
+.app-cross-card-btn-container .app-cross-card-btn {
+  -webkit-transition: all 0.3s;
+  background: $app-part-color;
+  border-radius: 50%;
+  bottom: 0;
+  // box-shadow: 0 10px 25px -5px rgba(44, 179, 240, 0.6);
+  color: $app-performance-color;
+  cursor: pointer;
+  font-size: 23px;
+  height: 48px;
+  left: 0;
+  line-height: 48px;
+  margin: auto auto -24px auto;
+  // margin-bottom: -24px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  transition: all 0.3s;
+  width: 48px;
+  z-index: 100;
+  border: 1px solid;
+}
+
+.app-cross-card-btn-container .app-cross-card-btn-add-act {
+  -webkit-transition: all 0.3s;
+  background: $app-act-color;
+  border-radius: 50%;
+  bottom: 0;
+
+  color: $app-performance-color;
+  cursor: pointer;
+  font-size: 23px;
+  height: 48px;
+  left: 0;
+  line-height: 48px;
+  margin: auto auto -24px auto;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  transition: all 0.3s;
+  width: 48px;
+  z-index: 100;
+  border: 1px solid;
+}
+
+.app-cross-card-btn-container .float-element {
+  position: relative;
+  display: block;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 15px auto;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  line-height: 50px;
+  z-index: 0;
+  opacity: 0;
+  -webkit-transform: translateY(100px);
+  transform: translateY(100px);
+}
+
+// Typography.
+
+.app-typography-1 {
+  font-family: PT Serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 15.9px;
+}
+.app-typography-2 {
+  font-family: PT Sans;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15.53px;
+}
+
+.app-typography-3 {
+  font-family: PT Serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 37.1px;
+}
+.app-typography-4 {
+  font-family: PT Sans Narrow;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: 0.1em;
+}
+
+.app-typography-5 {
+  font-family: PT Serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15.9px;
+}
+
+.app-typography-6 {
+  font-family: PT Serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 31.8px;
+}
+
+.app-typography-7 {
+  font-family: PT Serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 23.85px;
+}

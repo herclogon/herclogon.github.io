@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>КОНЦЕРТМАСТЕР</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/pt-serif" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/pt-sans-narrow" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/pt-sans-2" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="template.css" rel="stylesheet" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+
+  <body>
+    <div class="app-container" id="app">
+      <div class="app-performance-card">
+        <div class="app-name">{{performance.title}}</div>
+        <div>
+          <div class="app-performance-name">{{performance.name}}</div>
+          <div class="app-performance-addon">{{performance.addon}}</div>
+        </div>
+        <div class="app-performance-location">
+          <div>{{ performance.when }}</div>
+          <div v-for="where in performance.where">{{ where }}</div>
+        </div>
+      </div>
+      <div class="app-cross-card-btn-container">
+        <div
+          class="app-cross-card-btn"
+          @click="
+            addCard({
+              collection: performance.parts, 
+              object: performance.template.part, 
+            })"
+        >
+          +
+        </div>
+      </div>
+
+      <!-- Карточки частей. -->
+      <div class="app-parts" v-for="(part, part_index) in performance.parts">
+        <div class="app-part">
+          <div class="app-part-card" :id="part.id">
+            <div class="d-flex justify-content-between">
+              <div
+                class="app-part-title app-active-element"
+                @click="editItem({
+                  collection: performance.parts, 
+                  object: part, 
+                  editors: [
+                    {key: 'title', editor: 'input'},
+                  ], 
+                  removable: false
+                })"
+              >
+                {{part.title}}
+              </div>
+              <i
+                class="bi bi-caret-up-fill app-action-btn"
+                data-toggle="tooltip"
+                :class="[ part_index == 0 ? 'app-action-btn-hidden': '' ]"
+                title="Переместить выше"
+                @click="moveUp(performance.parts, part)"
+              ></i>
+            </div>
+            <div
+              class="app-active-element"
+              @click="editItem({
+                collection: [], 
+                object: part, 
+                editors: [
+                  {key: 'name', editor: 'input'},
+                  {key: 'addon', editor: 'input'},
+                ], 
+                removable: false
+              })"
+            >
+              <div class="app-part-name" v-if="part.name">{{part.name}}</div>
+              <div class="app-part-addon" v-if="part.addon">{{part.addon}}</div>
+            </div>
+
+            <!-- Список исполнителей части. -->
+            <div class="app-part-performers">
+              <div
+                class="app-part-performer app-active-element"
+                v-for="performer in part.performers"
+                @click="editItem({
+                  collection: part.performers, 
+                  object: performer, 
+                  editors: [
+                    {key: 'role', editor: 'input'},
+                    {key: 'name', editor: 'input'},
+                    {key: 'addon', editor: 'textarea'}
+                  ], 
+                  removable: true
+                })"
+              >
+                <div class="app-part-performer-role" v-if="performer.role">{{performer.role}}</div>
+                <div class="app-part-performer-who" v-if="performer.name">
+                  <b>{{performer.name}}</b>
+                  <div v-if="performer.addon">{{performer.addon}}</div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <i
+                  class="bi bi-plus-lg app-action-btn app-active-element"
+                  data-toggle="tooltip"
+                  title="Добавить исполнителя"
+                  @click="addItem({
+                    collection: part.performers, 
+                    object: performance.template.performer, 
+                    editors: [
+                      {key: 'role', editor: 'input'},
+                      {key: 'name', editor: 'input'},
+                      {key: 'addon', editor: 'textarea'}
+                    ], 
+                    removable: true
+                  })"
+                ></i>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between">
+              <i
+                class="bi bi-trash3 app-action-btn"
+                data-toggle="tooltip"
+                title="Удалить часть"
+                @click="deleteCard(performance.parts, part)"
+              >
+              </i>
+              <i
+                class="bi bi-caret-down-fill app-action-btn"
+                data-toggle="tooltip"
+                title="Переместить ниже"
+                :class="[ part_index == performance.parts.length-1 ? 'app-action-btn-hidden': '' ]"
+                @click="moveDown(performance.parts, part)"
+              ></i>
+            </div>
+          </div>
+          <div class="app-cross-card-btn-container">
+            <div
+              class="app-cross-card-btn-add-act"
+              @click="addCard({
+                collection: part.acts, 
+                object: performance.template.act, 
+              })"
+            >
+              +
+            </div>
+          </div>
+          
+          <!-- Карточки номеров части. -->
+          <div class="app-acts">
+            <div class="app-act-card" v-for="(act, index) in part.acts" :id="act.id">
+              <div class="d-flex justify-content-end">
+                <i
+                  class="bi bi-caret-up-fill app-action-btn"
+                  :class="{ 'app-action-btn-hidden': index == 0 }"
+                  data-toggle="tooltip"
+                  title="Переместить выше"
+                  @click="moveUp(part.acts, act)"
+                ></i>
+              </div>
+              
+              <!-- Список авторов номера. -->
+              <div class="app-act-authors">
+                <div
+                  class="app-act-author app-active-element"
+                  v-for="author in act.authors"
+                  @click="editItem({
+                    collection: act.authors, 
+                    object: author, 
+                    editors: [
+                      {key: 'role', editor: 'input'},
+                      {key: 'name', editor: 'input'}
+                    ], 
+                    removable: true
+                  })"
+                >
+                  <div class="app-act-author-role" v-if="author.role">{{author.role}}</div>
+                  <div class="app-act-author-name" v-if="author.name">{{author.name}}</div>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <i
+                    class="bi bi-plus-lg app-action-btn app-active-element"
+                    data-toggle="tooltip"
+                    title="Добавить автора"
+                    @click="addItem({
+                      collection: act.authors, 
+                      object: performance.template.author, 
+                      editors: [
+                        {key: 'role', editor: 'input'},
+                        {key: 'name', editor: 'input'}
+                      ], 
+                      removable: true
+                    })"
+                  ></i>
+                </div>
+              </div>
+              
+              <!-- Название и описание номера.  -->
+              <div
+                class="app-active-element"
+                @click="editItem({collection: [], object: act, editors: [
+                    {key: 'name', editor: 'input'},
+                    {key: 'addon', editor: 'input'}
+                  ], removable: false
+                })"
+              >
+                <div class="app-act-name" v-if="act.name">{{act.name}}</div>
+                <div class="app-act-addon" v-if="act.addon">{{act.addon}}</div>
+              </div>
+
+              <!-- Список исполнителей номера. -->
+              <div class="app-act-performers">
+                <div
+                  class="app-act-performer app-active-element"
+                  v-for="performer in act.performers"
+                  @click="editItem({
+                    collection: act.performers, 
+                    object: performer, 
+                    editors: [
+                      {key: 'role', editor: 'input'},
+                      {key: 'name', editor: 'input'},
+                      {key: 'addon', editor: 'textarea'}
+                    ], 
+                    removable: true
+                  })"
+                >
+                  <div class="app-act-performer-role" v-if="performer.role">{{performer.role}}</div>
+                  <div class="app-act-performer-name" v-if="performer.name">{{performer.name}}</div>
+                  <div class="app-act-performer-addon" v-if="performer.addon">{{performer.addon}}</div>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <i
+                    class="bi bi-plus-lg app-action-btn app-active-element"
+                    data-toggle="tooltip"
+                    title="Добавить исполнителя"
+                    @click="addItem({
+                      collection: act.performers, 
+                      object: performance.template.performer, 
+                      editors: [
+                        {key: 'role', editor: 'input'},
+                        {key: 'name', editor: 'input'},
+                        {key: 'addon', editor: 'textarea'}
+                      ], 
+                      removable: true
+                    })"
+                  ></i>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <i
+                  class="bi bi-trash3 app-action-btn app-active-element"
+                  data-toggle="tooltip"
+                  title="Удалить номер"
+                  @click="deleteCard(part.acts, act)"
+                ></i>
+                <i
+                  :class="[ index == part.acts.length-1 ? 'app-action-btn-hidden': '' ]"
+                  class="bi bi-caret-down-fill app-action-btn app-active-element"
+                  data-toggle="tooltip"
+                  title="Переместить ниже"
+                  @click="moveDown(part.acts, act)"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-edit-overlay" tabindex="1" v-if="showEditor">
+        <div v-for="item in editor.items">
+          <input class="form-control" v-model="editor.object[item.key]" />
+        </div>
+        <div class="d-flex justify-content-center" v-if="editor.removable">
+          <i
+            class="bi bi-trash3 app-action-btn"
+            data-toggle="tooltip"
+            title="Удалить запись"
+            @click="deleteItem(editor.collection, editor.object)"
+          ></i>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const { createApp, ref } = Vue;
+
+      createApp({
+        setup() {
+          let performance = ref({});
+          let showEditor = ref(false);
+          let editor = ref({ items: [] });
+          let editorCloseTracker = () => {};
+
+          fetch("data-example.json").then((data) => {
+            data.json().then((data) => {
+              performance.value = data;
+            });
+          });
+
+          return {
+            editorCloseTracker,
+            performance,
+            showEditor,
+            editor,
+          };
+        },
+
+        methods: {
+          moveUp(collection, object) {
+            const index = collection.indexOf(object);
+            object.id = object.id ?? crypto.randomUUID();
+            if (index > -1 && index - 1 > -1) {
+              collection.splice(index, 1);
+              collection.splice(index - 1, 0, object);
+            }
+
+            this._scrollToId(object.id);
+          },
+
+          moveDown(collection, object) {
+            const index = collection.indexOf(object);
+            object.id = object.id ?? crypto.randomUUID();
+            if (index > -1) {
+              collection.splice(index, 1);
+              collection.splice(index + 1, 0, object);
+            }
+
+            this._scrollToId(object.id);
+          },
+
+          addItem({ collection, object, editors, removable }) {
+            object = JSON.parse(JSON.stringify(object));
+            object.id = object.id ?? crypto.randomUUID();
+            collection.push(object);
+            this.editItem({ collection, object, editors, removable });
+          },
+
+          editItem({ collection, object, editors, removable }) {
+            // Config structure:
+            // {
+            //   collection: [],
+            //   object: {},
+            //   editors: [{ editor: "textarea", key: "key", label: "label" }],
+            //   removable: false,
+            // };
+            this.editor.items = [];
+            if (editors) {
+              for (let params of editors) {
+                this.editor.collection = collection;
+                this.editor.object = object;
+                this.editor.removable = removable;
+                this.editor.items.push({
+                  key: params.key,
+                });
+              }
+              this.openEditor();
+            } else {
+              this.closeEditor();
+            }
+          },
+
+          deleteItem(collection, object) {
+            const index = collection.indexOf(object);
+            if (index > -1) {
+              collection.splice(index, 1);
+              this.closeEditor();
+            }
+          },
+
+          addCard(config) {
+            let object = JSON.parse(JSON.stringify(config.object));
+            object.id = crypto.randomUUID();
+            config.collection.push(object);
+            this._scrollToId(object.id);
+          },
+
+          deleteCard(collection, object) {
+            const index = collection.indexOf(object);
+            if (index > -1) {
+              collection.splice(index, 1);
+            }
+          },
+
+          openEditor() {
+            // Подписываемся на `click` чтобы закрывать редактор, при нажатии
+            // вне формы редактирования.
+            document.removeEventListener("click", this.editorCloseTracker);
+            document.addEventListener("click", this.editorCloseTracker);
+            this.showEditor = true;
+          },
+
+          closeEditor() {
+            document.removeEventListener("click", this.editorCloseTracker);
+            this.showEditor = false;
+          },
+
+          _scrollToId(id) {
+            setTimeout(() => {
+              let el = document.getElementById(id);
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth", inline: "center", block: "center" });
+              }
+            }, 200);
+          },
+        },
+
+        mounted() {
+          // Закрываем редактор если пользователь ткнул куда-нибудь в пустое
+          // место, но не другой элемент редактирования.
+          this.editorCloseTracker = (e) => {
+            const clickedOutsideEditor = e.target.closest(".app-edit-overlay") === null;
+            const clickedActiveElement = !!e.target.closest(".app-active-element");
+            if (clickedOutsideEditor && !clickedActiveElement && this.showEditor) {
+              e.stopPropagation();
+              this.closeEditor();
+            }
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

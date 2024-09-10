@@ -1,0 +1,5 @@
+{
+    "liveSassCompile.settings.showOutputWindowOn": "None",
+    "html.format.wrapLineLength": 120,
+    "prettier.printWidth": 120
+}

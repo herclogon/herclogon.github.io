@@ -1,0 +1,16 @@
+
+body {
+    font-family: 'PT Serif', sans-serif !important;
+
+}
+
+.app-item-card-container {
+    border: 1px solid var(--bs-border-color);
+    --bd-example-padding: 1.2rem;
+    padding: var(--bd-example-padding);
+    border-radius: var(--bs-border-radius);
+    margin-bottom: 1rem;
+}
+.app-title {
+
+}

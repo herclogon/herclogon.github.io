@@ -32,7 +32,7 @@
       </div>
       <div class="app-cross-card-btn-container">
         <div
-          class="app-cross-card-btn"
+          class="app-cross-card-btn-add-part"
           @click="
             addCard({
               collection: performance.parts, 
@@ -153,7 +153,7 @@
               +
             </div>
           </div>
-          
+
           <!-- Карточки номеров части. -->
           <div class="app-acts">
             <div class="app-act-card" v-for="(act, index) in part.acts" :id="act.id">
@@ -166,7 +166,7 @@
                   @click="moveUp(part.acts, act)"
                 ></i>
               </div>
-              
+
               <!-- Список авторов номера. -->
               <div class="app-act-authors">
                 <div
@@ -202,7 +202,7 @@
                   ></i>
                 </div>
               </div>
-              
+
               <!-- Название и описание номера.  -->
               <div
                 class="app-active-element"

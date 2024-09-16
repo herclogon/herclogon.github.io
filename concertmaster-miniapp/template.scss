@@ -54,7 +54,7 @@ $app-act-color: ghostwhite;
   }
 
   .app-performance-location {
-    @extend .app-typography-event-location;
+    @extend .app-typography-2;
   }
 }
 
@@ -67,123 +67,124 @@ $app-act-color: ghostwhite;
 .app-parts {
   .app-part {
     background-color: antiquewhite;
-    .app-part-card {
-      @extend .app-card;
+  }
+}
 
-      gap: 24px;
-      padding: 24px;
+.app-part-card {
+  @extend .app-card;
 
-      .app-part-title {
-        @extend .app-typography-4;
-        line-height: 32px;
-        align-self: center;
-        cursor: pointer;
-      }
+  gap: 24px;
+  padding: 24px;
 
-      .app-part-name {
-        @extend .app-typography-1;
-        cursor: pointer;
-      }
-      .app-part-addon {
-        @extend .app-typography-5;
-        cursor: pointer;
-      }
+  .app-part-title {
+    @extend .app-typography-4;
+    line-height: 32px;
+    align-self: center;
+    cursor: pointer;
+  }
 
-      .app-part-performers {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+  .app-part-name {
+    @extend .app-typography-1;
+    cursor: pointer;
+  }
+  .app-part-addon {
+    @extend .app-typography-5;
+    cursor: pointer;
+  }
+}
 
-        .app-part-performer {
-          display: flex;
-          flex-direction: row;
-          cursor: pointer;
+.app-part-performers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 
-          .app-part-performer-role {
-            @extend .app-typography-2;
-            min-width: 120px;
-            max-width: 120px;
-            opacity: 0.5;
-          }
+  .app-part-performer {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
 
-          .app-part-performer-who {
-            @extend .app-typography-5;
-          }
-        }
-      }
+    .app-part-performer-role {
+      @extend .app-typography-2;
+      min-width: 120px;
+      max-width: 120px;
+      opacity: 0.5;
     }
 
-    .app-acts {
-      gap: 16px;
-      display: flex;
-      flex-direction: column;
-      padding: 0px -24px;
+    .app-part-performer-who {
+      @extend .app-typography-5;
+    }
+  }
+}
 
-      .app-act-card {
-        @extend .app-card;
-        background-color: ghostwhite;
-        gap: 24px;
-        padding: 24px;
+.app-acts {
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 0px -24px;
 
-        .app-part-title {
-          @extend .app-typography-4;
-          cursor: pointer;
-        }
-        .app-act-name {
-          @extend .app-typography-6;
-          cursor: pointer;
-        }
-        .app-act-addon {
-          @extend .app-typography-5;
-          cursor: pointer;
-        }
+  .app-act-card {
+    @extend .app-card;
+    background-color: ghostwhite;
+    gap: 24px;
+    padding: 24px;
 
-        .app-act-authors {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-          margin-top: -48px;
+    .app-part-title {
+      @extend .app-typography-4;
+      cursor: pointer;
+    }
+    .app-act-name {
+      @extend .app-typography-6;
+      cursor: pointer;
+    }
+    .app-act-addon {
+      @extend .app-typography-5;
+      cursor: pointer;
+    }
+  }
+}
 
-          .app-act-author {
-            flex-direction: row;
-            display: flex;
-            cursor: pointer;
+.app-act-performers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 
-            .app-act-author-role {
-              @extend .app-typography-2;
-              min-width: 120px;
-              max-width: 120px;
-              opacity: 0.5;
-            }
+  .app-act-performer {
+    cursor: pointer;
 
-            .app-act-author-name {
-              @extend .app-typography-5;
-            }
-          }
-        }
+    .app-act-performer-role {
+      @extend .app-typography-2;
+      opacity: 0.5;
+    }
 
-        .app-act-performers {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
+    .app-act-performer-name {
+      @extend .app-typography-7;
+    }
+    .app-act-performer-addon {
+      @extend .app-typography-5;
+    }
+  }
+}
 
-          .app-act-performer {
-            cursor: pointer;
+.app-act-authors {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: -48px;
 
-            .app-act-performer-role {
-              @extend .app-typography-2;
-              opacity: 0.5;
-            }
+  .app-act-author {
+    flex-direction: row;
+    display: flex;
+    cursor: pointer;
 
-            .app-act-performer-name {
-              @extend .app-typography-7;
-            }
-            .app-act-performer-addon {
-              @extend .app-typography-5;
-            }
-          }
-        }
-      }
+    .app-act-author-role {
+      @extend .app-typography-2;
+      min-width: 120px;
+      max-width: 120px;
+      opacity: 0.5;
+    }
+
+    .app-act-author-name {
+      @extend .app-typography-5;
     }
   }
 }
@@ -193,75 +194,38 @@ $app-act-color: ghostwhite;
 }
 
 // Cross card buttons.
-
 .app-cross-card-btn-container {
   position: relative;
-}
 
-.app-cross-card-btn-container .app-cross-card-btn {
-  -webkit-transition: all 0.3s;
-  background: $app-part-color;
-  border-radius: 50%;
-  bottom: 0;
-  // box-shadow: 0 10px 25px -5px rgba(44, 179, 240, 0.6);
-  color: $app-performance-color;
-  cursor: pointer;
-  font-size: 23px;
-  height: 48px;
-  left: 0;
-  line-height: 48px;
-  margin: auto auto -24px auto;
-  // margin-bottom: -24px;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  transition: all 0.3s;
-  width: 48px;
-  z-index: 100;
-  border: 1px solid;
-}
+  .app-cross-card-btn-add-part {
+    -webkit-transition: all 0.3s;
+    background: $app-part-color;
+    border-radius: 50%;
+    border: 1px solid;
+    bottom: 0;
+    color: $app-performance-color;
+    cursor: pointer;
+    font-size: 28px;
+    height: 48px;
+    left: 0;
+    line-height: 48px;
+    margin: auto auto -24px auto;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    transition: all 0.3s;
+    width: 48px;
+  }
 
-.app-cross-card-btn-container .app-cross-card-btn-add-act {
-  -webkit-transition: all 0.3s;
-  background: $app-act-color;
-  border-radius: 50%;
-  bottom: 0;
-
-  color: $app-performance-color;
-  cursor: pointer;
-  font-size: 23px;
-  height: 48px;
-  left: 0;
-  line-height: 48px;
-  margin: auto auto -24px auto;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  transition: all 0.3s;
-  width: 48px;
-  z-index: 100;
-  border: 1px solid;
-}
-
-.app-cross-card-btn-container .float-element {
-  position: relative;
-  display: block;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  margin: 15px auto;
-  color: white;
-  font-weight: 500;
-  text-align: center;
-  line-height: 50px;
-  z-index: 0;
-  opacity: 0;
-  -webkit-transform: translateY(100px);
-  transform: translateY(100px);
+  .app-cross-card-btn-add-act {
+    @extend .app-cross-card-btn-add-part;
+    background: $app-act-color;
+    color: $app-performance-color;
+    cursor: pointer;
+  }
 }
 
 // Typography.
-
 .app-typography-1 {
   font-family: PT Serif;
   font-size: 12px;

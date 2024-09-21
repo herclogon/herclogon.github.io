@@ -9,21 +9,6 @@ $app-act-color: ghostwhite;
   width: $app-container-width;
 }
 
-.app-edit-overlay {
-  background-color: white;
-  border-radius: 0px 0px 8px 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  left: 12px;
-  outline: none;
-  padding: 24px;
-  position: fixed;
-  right: 12px;
-  top: 0px;
-  z-index: 100500;
-}
-
 .app-card {
   display: flex;
   flex-direction: column;
@@ -56,12 +41,6 @@ $app-act-color: ghostwhite;
   .app-performance-location {
     @extend .app-typography-2;
   }
-}
-
-.app-action-btn {
-  cursor: pointer;
-  opacity: 0.4;
-  padding: 4px;
 }
 
 .app-parts {
@@ -185,42 +164,6 @@ $app-act-color: ghostwhite;
     .app-act-author-name {
       @extend .app-typography-5;
     }
-  }
-}
-
-.app-action-btn-hidden {
-  visibility: hidden;
-}
-
-// Cross card buttons.
-.app-cross-card-btn-container {
-  position: relative;
-
-  .app-cross-card-btn-add-part {
-    -webkit-transition: all 0.3s;
-    background: $app-part-color;
-    border-radius: 50%;
-    border: 1px solid;
-    bottom: 0;
-    color: $app-performance-color;
-    cursor: pointer;
-    font-size: 28px;
-    height: 48px;
-    left: 0;
-    line-height: 48px;
-    margin: auto auto -24px auto;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    transition: all 0.3s;
-    width: 48px;
-  }
-
-  .app-cross-card-btn-add-act {
-    @extend .app-cross-card-btn-add-part;
-    background: $app-act-color;
-    color: $app-performance-color;
-    cursor: pointer;
   }
 }
 

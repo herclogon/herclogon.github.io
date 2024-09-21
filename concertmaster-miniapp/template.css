@@ -4,21 +4,6 @@
   width: 100%;
 }
 
-.app-edit-overlay {
-  background-color: white;
-  border-radius: 0px 0px 8px 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  left: 12px;
-  outline: none;
-  padding: 24px;
-  position: fixed;
-  right: 12px;
-  top: 0px;
-  z-index: 100500;
-}
-
 .app-card, .app-acts .app-act-card, .app-part-card, .app-performance-card {
   display: flex;
   flex-direction: column;
@@ -41,12 +26,6 @@
   text-align: center;
   flex-grow: 1;
 }
-.app-action-btn {
-  cursor: pointer;
-  opacity: 0.4;
-  padding: 4px;
-}
-
 .app-parts .app-part {
   background-color: antiquewhite;
 }
@@ -129,38 +108,6 @@
   max-width: 120px;
   opacity: 0.5;
 }
-.app-action-btn-hidden {
-  visibility: hidden;
-}
-
-.app-cross-card-btn-container {
-  position: relative;
-}
-.app-cross-card-btn-container .app-cross-card-btn-add-part, .app-cross-card-btn-container .app-cross-card-btn-add-act {
-  -webkit-transition: all 0.3s;
-  background: antiquewhite;
-  border-radius: 50%;
-  border: 1px solid;
-  bottom: 0;
-  color: darksalmon;
-  cursor: pointer;
-  font-size: 28px;
-  height: 48px;
-  left: 0;
-  line-height: 48px;
-  margin: auto auto -24px auto;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  transition: all 0.3s;
-  width: 48px;
-}
-.app-cross-card-btn-container .app-cross-card-btn-add-act {
-  background: ghostwhite;
-  color: darksalmon;
-  cursor: pointer;
-}
-
 .app-typography-1, .app-part-card .app-part-name {
   font-family: PT Serif;
   font-size: 12px;
